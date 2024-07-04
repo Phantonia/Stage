@@ -23,7 +23,10 @@ public partial class ActorFollowerSpotlight : SpotLight3D
         Vector3 axis = pivot.Cross(direction).Normalized();
 		float angle = Mathf.Acos(direction.Dot(pivot));
 
-		Quaternion goal = new Quaternion(axis, angle);
-		Quaternion = Quaternion.Slerp(goal, Mathf.Clamp(8F * (float)delta, 0, 1));
+		Quaternion goal = new(axis, angle);
+
+		// slerp smoothing
+		// might be broken, don't know
+		Quaternion = Quaternion.Slerp(goal, Mathf.Clamp(16F * (float)delta, 0, 1));
 	}
 }

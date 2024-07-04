@@ -127,18 +127,17 @@ transform = Transform3D(1, 0, 0, 0, 0.950532, 0.310627, 0, -0.310627, 0.950532, 
 
 [node name="MainSpotLightLeft" type="SpotLight3D" parent="."]
 transform = Transform3D(0.951057, 0.154509, -0.267617, 0, 0.866026, 0.5, 0.309017, -0.475528, 0.823639, -16, 128, 192)
-visible = false
 light_energy = 256.0
 spot_range = 4096.0
 
 [node name="MainSpotLightRight" type="SpotLight3D" parent="."]
 transform = Transform3D(0.951057, -0.154509, 0.267617, 0, 0.866026, 0.5, -0.309017, -0.475528, 0.823639, 16, 128, 192)
-visible = false
 light_energy = 256.0
 spot_range = 4096.0
 
 [node name="ActorFollowerSpotlight" type="SpotLight3D" parent="." node_paths=PackedStringArray("Actor")]
-transform = Transform3D(1, 0, 0, 0, 0.843869, 0.536549, 0, -0.536549, 0.843869, 0, 128, 192)
+transform = Transform3D(1, 0, 0, 0, 0.833818, 0.552039, 0, -0.552039, 0.833818, 0, 120.644, 152.285)
+visible = false
 light_energy = 128.0
 spot_range = 384.0
 spot_attenuation = 0.435275
@@ -157,5 +156,5 @@ camera_attributes = SubResource("CameraAttributesPractical_80fv8")
 
 [node name="BackgroundLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 92.5997, 158.888)
-light_energy = 128.0
+light_energy = 16.0
 omni_range = 298.123
