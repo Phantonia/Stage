@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://sy3hebwqvjpn"]
+[gd_scene load_steps=21 format=3 uid="uid://sy3hebwqvjpn"]
 
 [ext_resource type="Script" path="res://Actor.cs" id="1_byiny"]
+[ext_resource type="Texture2D" uid="uid://xqrs3eu13j5o" path="res://textures/stage_texture.jpg" id="1_l0f5l"]
 [ext_resource type="Script" path="res://ActorFollowerSpotlight.cs" id="2_ygikl"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vnopp"]
@@ -16,9 +17,11 @@ orientation = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_obp7w"]
 albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wl474"]
 albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4tk5e"]
 size = Vector2(128, 128)
@@ -26,16 +29,18 @@ orientation = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44pn5"]
 albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_i66cx"]
 size = Vector2(512, 256)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3kq5e"]
 albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrrw7"]
-albedo_color = Color(0.509804, 0.419608, 0.266667, 1)
-metallic = 1.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g0w5"]
+albedo_texture = ExtResource("1_l0f5l")
+uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_71va0"]
 size = Vector3(384, 16, 128)
@@ -105,7 +110,7 @@ freeze = true
 
 [node name="Stage" type="CSGBox3D" parent="RigidBody3D2"]
 size = Vector3(384, 16, 128)
-material = SubResource("StandardMaterial3D_nrrw7")
+material = SubResource("StandardMaterial3D_0g0w5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
 shape = SubResource("BoxShape3D_71va0")
