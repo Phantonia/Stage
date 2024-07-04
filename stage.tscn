@@ -1,0 +1,161 @@
+[gd_scene load_steps=20 format=3 uid="uid://sy3hebwqvjpn"]
+
+[ext_resource type="Script" path="res://Actor.cs" id="1_byiny"]
+[ext_resource type="Script" path="res://ActorFollowerSpotlight.cs" id="2_ygikl"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vnopp"]
+size = Vector2(128, 96)
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_382di"]
+albedo_color = Color(0.227451, 0, 0.345098, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5uigw"]
+size = Vector2(128, 96)
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_obp7w"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wl474"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4tk5e"]
+size = Vector2(128, 128)
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44pn5"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i66cx"]
+size = Vector2(512, 256)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3kq5e"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrrw7"]
+albedo_color = Color(0.509804, 0.419608, 0.266667, 1)
+metallic = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_71va0"]
+size = Vector3(384, 16, 128)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yyxot"]
+radius = 6.0
+height = 24.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bgf5o"]
+radius = 6.0
+height = 24.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_e4dt8"]
+top_radius = 0.0
+bottom_radius = 44.633
+height = 512.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_erhew"]
+transparency = 1
+shading_mode = 0
+disable_receive_shadows = true
+proximity_fade_enabled = true
+proximity_fade_distance = 1024.0
+
+[sub_resource type="Environment" id="Environment_c8hxy"]
+ambient_light_source = 1
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 16.0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80fv8"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Backplane" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.2194, 0, 0, 0, 1.01202, 0, 0, 0, 1.01202, -2.823, 51.501, -64)
+mesh = SubResource("PlaneMesh_vnopp")
+skeleton = NodePath("../RigidBody3D2/Stage")
+surface_material_override/0 = SubResource("StandardMaterial3D_382di")
+
+[node name="SidePlaneLeft" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.830518, 0, 0.4795, 0, 3, 0, -0.4795, 0, 0.830518, -119.426, 136, 96)
+mesh = SubResource("PlaneMesh_5uigw")
+skeleton = NodePath("../RigidBody3D2/Stage")
+surface_material_override/0 = SubResource("StandardMaterial3D_obp7w")
+
+[node name="SidePlaneRight" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866025, 0, -0.5, 0, 3, 0, 0.5, 0, 0.866025, 119.426, 136, 96)
+mesh = SubResource("PlaneMesh_5uigw")
+skeleton = NodePath("../RigidBody3D2/Stage")
+surface_material_override/0 = SubResource("StandardMaterial3D_wl474")
+
+[node name="TopPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 1.5, -2.59808, 0, 2.59808, 1.5, 0, 136, 0)
+mesh = SubResource("PlaneMesh_4tk5e")
+skeleton = NodePath("../SidePlaneRight")
+surface_material_override/0 = SubResource("StandardMaterial3D_44pn5")
+
+[node name="BottomPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 129.414)
+mesh = SubResource("PlaneMesh_i66cx")
+skeleton = NodePath("../TopPlane")
+surface_material_override/0 = SubResource("StandardMaterial3D_3kq5e")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+freeze = true
+
+[node name="Stage" type="CSGBox3D" parent="RigidBody3D2"]
+size = Vector3(384, 16, 128)
+material = SubResource("StandardMaterial3D_nrrw7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+shape = SubResource("BoxShape3D_71va0")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.1998, 0)
+
+[node name="Actor" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(0.991298, 0, 0, 0, 0.991298, 0, 0, 0, 0.991298, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_yyxot")
+skeleton = NodePath("../../RigidBody3D2/Stage")
+script = ExtResource("1_byiny")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("CapsuleShape3D_bgf5o")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.950532, 0.310627, 0, -0.310627, 0.950532, 0, 62.5073, 144.012)
+
+[node name="MainSpotLightLeft" type="SpotLight3D" parent="."]
+transform = Transform3D(0.951057, 0.154509, -0.267617, 0, 0.866026, 0.5, 0.309017, -0.475528, 0.823639, -16, 128, 192)
+visible = false
+light_energy = 256.0
+spot_range = 4096.0
+
+[node name="MainSpotLightRight" type="SpotLight3D" parent="."]
+transform = Transform3D(0.951057, -0.154509, 0.267617, 0, 0.866026, 0.5, -0.309017, -0.475528, 0.823639, 16, 128, 192)
+visible = false
+light_energy = 256.0
+spot_range = 4096.0
+
+[node name="ActorFollowerSpotlight" type="SpotLight3D" parent="." node_paths=PackedStringArray("Actor")]
+transform = Transform3D(1, 0, 0, 0, 0.843869, 0.536549, 0, -0.536549, 0.843869, 0, 128, 192)
+light_energy = 128.0
+spot_range = 384.0
+spot_attenuation = 0.435275
+spot_angle = 5.0
+script = ExtResource("2_ygikl")
+Actor = NodePath("../RigidBody3D/Actor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ActorFollowerSpotlight"]
+transform = Transform3D(1, 0, 0, 0, -8.9407e-08, -1, 0, 1, -8.9407e-08, 0, 0, -256)
+mesh = SubResource("CylinderMesh_e4dt8")
+surface_material_override/0 = SubResource("StandardMaterial3D_erhew")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_c8hxy")
+camera_attributes = SubResource("CameraAttributesPractical_80fv8")
+
+[node name="BackgroundLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 92.5997, 158.888)
+light_energy = 128.0
+omni_range = 298.123
