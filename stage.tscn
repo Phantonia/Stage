@@ -1,8 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://sy3hebwqvjpn"]
+[gd_scene load_steps=24 format=3 uid="uid://sy3hebwqvjpn"]
 
 [ext_resource type="Script" path="res://Actor.cs" id="1_byiny"]
-[ext_resource type="Texture2D" uid="uid://xqrs3eu13j5o" path="res://textures/stage_texture.jpg" id="1_l0f5l"]
 [ext_resource type="Script" path="res://ActorFollowerSpotlight.cs" id="2_ygikl"]
+[ext_resource type="Script" path="res://MovingHeads.cs" id="4_853rr"]
+[ext_resource type="PackedScene" uid="uid://b0pth04cytnj6" path="res://spotlight.tscn" id="4_gkcbj"]
+[ext_resource type="Script" path="res://CraneCamera.cs" id="4_r5f3x"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vnopp"]
 size = Vector2(128, 96)
@@ -39,7 +41,7 @@ albedo_color = Color(0, 0, 0, 1)
 roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g0w5"]
-albedo_texture = ExtResource("1_l0f5l")
+albedo_color = Color(0.513726, 0.392157, 0.34902, 1)
 uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_71va0"]
@@ -72,94 +74,148 @@ ambient_light_energy = 16.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80fv8"]
 
+[sub_resource type="Curve3D" id="Curve3D_m0tw5"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, -48, -16, 0, 128, 128, 0, -12, 64, 0, -32, -64, 0, 32, 80),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+up_vector_enabled = false
+
 [node name="Node3D" type="Node3D"]
 
-[node name="Backplane" type="MeshInstance3D" parent="."]
-transform = Transform3D(5.2194, 0, 0, 0, 1.01202, 0, 0, 0, 1.01202, -2.823, 51.501, -64)
+[node name="BoundingPlanes" type="Node3D" parent="."]
+
+[node name="Backplane" type="MeshInstance3D" parent="BoundingPlanes"]
+transform = Transform3D(5.219, 0, 0, 0, 1, 0, 0, 0, 1, -2.823, 51.501, -64)
 mesh = SubResource("PlaneMesh_vnopp")
-skeleton = NodePath("../RigidBody3D2/Stage")
+skeleton = NodePath("../../Stage/StageBox")
 surface_material_override/0 = SubResource("StandardMaterial3D_382di")
 
-[node name="SidePlaneLeft" type="MeshInstance3D" parent="."]
+[node name="SidePlaneLeft" type="MeshInstance3D" parent="BoundingPlanes"]
 transform = Transform3D(0.830518, 0, 0.4795, 0, 3, 0, -0.4795, 0, 0.830518, -119.426, 136, 96)
 mesh = SubResource("PlaneMesh_5uigw")
-skeleton = NodePath("../RigidBody3D2/Stage")
+skeleton = NodePath("../../Stage/StageBox")
 surface_material_override/0 = SubResource("StandardMaterial3D_obp7w")
 
-[node name="SidePlaneRight" type="MeshInstance3D" parent="."]
+[node name="SidePlaneRight" type="MeshInstance3D" parent="BoundingPlanes"]
 transform = Transform3D(0.866025, 0, -0.5, 0, 3, 0, 0.5, 0, 0.866025, 119.426, 136, 96)
 mesh = SubResource("PlaneMesh_5uigw")
-skeleton = NodePath("../RigidBody3D2/Stage")
+skeleton = NodePath("../../Stage/StageBox")
 surface_material_override/0 = SubResource("StandardMaterial3D_wl474")
 
-[node name="TopPlane" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 1.5, -2.59808, 0, 2.59808, 1.5, 0, 136, 0)
+[node name="TopPlane" type="MeshInstance3D" parent="BoundingPlanes"]
+transform = Transform3D(8.22514, 0, 0, 0, 1.5, -2.59808, 0, 2.59808, 1.5, 0, 136, 0)
+visible = false
 mesh = SubResource("PlaneMesh_4tk5e")
 skeleton = NodePath("../SidePlaneRight")
 surface_material_override/0 = SubResource("StandardMaterial3D_44pn5")
 
-[node name="BottomPlane" type="MeshInstance3D" parent="."]
+[node name="BottomPlane" type="MeshInstance3D" parent="BoundingPlanes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 129.414)
 mesh = SubResource("PlaneMesh_i66cx")
 skeleton = NodePath("../TopPlane")
 surface_material_override/0 = SubResource("StandardMaterial3D_3kq5e")
 
-[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+[node name="Stage" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.307407, 0, -0.0391083)
 gravity_scale = 0.0
 freeze = true
 
-[node name="Stage" type="CSGBox3D" parent="RigidBody3D2"]
-size = Vector3(384, 16, 128)
+[node name="StageBox" type="CSGBox3D" parent="Stage"]
+size = Vector3(768, 16, 128)
 material = SubResource("StandardMaterial3D_0g0w5")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+[node name="StageCollider" type="CollisionShape3D" parent="Stage"]
 shape = SubResource("BoxShape3D_71va0")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.1998, 0)
+[node name="Actor" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.4454, 0)
 
-[node name="Actor" type="MeshInstance3D" parent="RigidBody3D"]
-transform = Transform3D(0.991298, 0, 0, 0, 0.991298, 0, 0, 0, 0.991298, 0, 0, 0)
+[node name="ActorMesh" type="MeshInstance3D" parent="Actor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_yyxot")
-skeleton = NodePath("../../RigidBody3D2/Stage")
+skeleton = NodePath("../../Stage/StageBox")
 script = ExtResource("1_byiny")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="ActorCollider" type="CollisionShape3D" parent="Actor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_bgf5o")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.950532, 0.310627, 0, -0.310627, 0.950532, 0, 62.5073, 144.012)
+[node name="LightSetup" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.941111, 0.338097, 0, -0.338097, 0.941111, 0, 70.7299, 143.847)
 
-[node name="MainSpotLightLeft" type="SpotLight3D" parent="."]
-transform = Transform3D(0.951057, 0.154509, -0.267617, 0, 0.866026, 0.5, 0.309017, -0.475528, 0.823639, -16, 128, 192)
+[node name="MainSpotLightLeft" type="SpotLight3D" parent="LightSetup"]
+transform = Transform3D(0.951057, 0.154508, -0.267617, -0.104478, 0.975801, 0.192085, 0.290819, -0.154724, 0.944185, -16, 37.6172, 64.6801)
 light_energy = 256.0
 spot_range = 4096.0
 
-[node name="MainSpotLightRight" type="SpotLight3D" parent="."]
-transform = Transform3D(0.951057, -0.154509, 0.267617, 0, 0.866026, 0.5, -0.309017, -0.475528, 0.823639, 16, 128, 192)
+[node name="MainSpotLightRight" type="SpotLight3D" parent="LightSetup"]
+transform = Transform3D(0.951057, -0.154508, 0.267617, 0.104478, 0.975801, 0.192085, -0.290819, -0.154724, 0.944185, 16, 37.6172, 64.6801)
 light_energy = 256.0
 spot_range = 4096.0
 
-[node name="ActorFollowerSpotlight" type="SpotLight3D" parent="." node_paths=PackedStringArray("Actor")]
-transform = Transform3D(1, 0, 0, 0, 0.833818, 0.552039, 0, -0.552039, 0.833818, 0, 120.644, 152.285)
+[node name="ActorFollowerSpotlight" type="SpotLight3D" parent="LightSetup" node_paths=PackedStringArray("Actor")]
+transform = Transform3D(1, 0, 0, 0, 0.971359, 0.237618, 0, -0.237618, 0.971359, 0, 44.1219, 24.8168)
 visible = false
 light_energy = 128.0
 spot_range = 384.0
 spot_attenuation = 0.435275
 spot_angle = 5.0
 script = ExtResource("2_ygikl")
-Actor = NodePath("../RigidBody3D/Actor")
+Actor = NodePath("../../Actor/ActorMesh")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ActorFollowerSpotlight"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LightSetup/ActorFollowerSpotlight"]
 transform = Transform3D(1, 0, 0, 0, -8.9407e-08, -1, 0, 1, -8.9407e-08, 0, 0, -256)
 mesh = SubResource("CylinderMesh_e4dt8")
 surface_material_override/0 = SubResource("StandardMaterial3D_erhew")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="MovingHeads" type="Node3D" parent="LightSetup"]
+transform = Transform3D(1, 0, 0, 0, 0.941111, -0.338097, 0, 0.338097, 0.941111, 0, -17.9303, -159.29)
+script = ExtResource("4_853rr")
+BeginningRotation = Quaternion(0.985, 0, 0, 0.174)
+
+[node name="MovingHead5" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(0.961262, -0.275637, 0, -0.259014, -0.903291, -0.34202, 0.0942735, 0.328771, -0.939693, -64, 110.116, -58.981)
+
+[node name="MovingHead4" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(0.990268, -0.139173, 0, -0.13078, -0.930548, -0.34202, 0.0476, 0.338692, -0.939693, -32, 110.116, -58.981)
+
+[node name="MovingHead" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, 0, 110.116, -58.9809)
+
+[node name="MovingHead2" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(0.990268, 0.139173, 0, 0.13078, -0.930548, -0.34202, -0.0476, 0.338692, -0.939693, 32, 110.116, -58.981)
+
+[node name="MovingHead3" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(0.961262, 0.275637, 0, 0.259014, -0.903291, -0.34202, -0.0942735, 0.328771, -0.939693, 64, 110.116, -58.981)
+
+[node name="BackgroundLight" type="OmniLight3D" parent="LightSetup"]
+transform = Transform3D(1, 0, 0, 0, 0.941111, -0.338097, 0, 0.338097, 0.941111, 0, 15.4966, 21.5493)
+light_energy = 16.0
+omni_range = 298.123
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightSetup"]
 environment = SubResource("Environment_c8hxy")
 camera_attributes = SubResource("CameraAttributesPractical_80fv8")
 
-[node name="BackgroundLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 92.5997, 158.888)
-light_energy = 16.0
-omni_range = 298.123
+[node name="CameraSetup" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.989886, 0.141869, 0, -0.141869, 0.989886, 0, 0, 0)
+
+[node name="MainCamera" type="Camera3D" parent="CameraSetup"]
+transform = Transform3D(1, 0, 0, 0, 0.979558, 0.201163, 0, -0.201163, 0.979558, 0, 49.607, 152.427)
+
+[node name="CraneCamera" type="Path3D" parent="CameraSetup"]
+visible = false
+curve = SubResource("Curve3D_m0tw5")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="CameraSetup/CraneCamera" node_paths=PackedStringArray("Camera")]
+transform = Transform3D(1, 0, 0, 0, 0.999987, 0, 0, 0, 0.999987, 0, 128, 128)
+rotation_mode = 0
+tilt_enabled = false
+script = ExtResource("4_r5f3x")
+Camera = NodePath("CraneCamera")
+CenterOfStage = Vector3(0, 32, 0)
+
+[node name="CraneCamera" type="Camera3D" parent="CameraSetup/CraneCamera/PathFollow3D"]
+transform = Transform3D(1, 0, 0, 0, 0.701317, 0.712868, 0, -0.712868, 0.701317, 0, 0, 0)

@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0pth04cytnj6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4u81s"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3hw20"]
+material = SubResource("StandardMaterial3D_4u81s")
+top_radius = 4.8
+bottom_radius = 3.2
+height = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ilj8"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.498039)
+disable_receive_shadows = true
+proximity_fade_distance = 1024.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7js5p"]
+material = SubResource("StandardMaterial3D_2ilj8")
+top_radius = 2.0
+bottom_radius = 48.571
+height = 1024.0
+
+[node name="MovingHead" type="Node3D"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -42.1955, 0)
+light_energy = 16.0
+spot_range = 4096.0
+spot_attenuation = 0.482968
+spot_angle = 3.0
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_3hw20")
+
+[node name="Beam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 508.502, 0)
+mesh = SubResource("CylinderMesh_7js5p")

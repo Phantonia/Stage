@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://sg2klsuspfip"]
+
+[ext_resource type="Shader" path="res://Curtain.gdshader" id="1_orc4w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5mmle"]
+render_priority = 0
+shader = ExtResource("1_orc4w")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vhy26"]
+material = SubResource("ShaderMaterial_5mmle")
+size = Vector2(4, 2)
+subdivide_width = 128
+orientation = 2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_vhy26")
