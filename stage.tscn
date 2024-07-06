@@ -131,6 +131,7 @@ shape = SubResource("BoxShape3D_71va0")
 
 [node name="Actor" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.4454, 0)
+visible = false
 
 [node name="ActorMesh" type="MeshInstance3D" parent="Actor"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -173,22 +174,42 @@ surface_material_override/0 = SubResource("StandardMaterial3D_erhew")
 [node name="MovingHeads" type="Node3D" parent="LightSetup"]
 transform = Transform3D(1, 0, 0, 0, 0.941111, -0.338097, 0, 0.338097, 0.941111, 0, -17.9303, -159.29)
 script = ExtResource("4_853rr")
-BeginningRotation = Quaternion(0.985, 0, 0, 0.174)
 
-[node name="MovingHead5" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
-transform = Transform3D(0.961262, -0.275637, 0, -0.259014, -0.903291, -0.34202, 0.0942735, 0.328771, -0.939693, -64, 110.116, -58.981)
+[node name="MovingHead0" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, -176, 110.116, -58.981)
 
-[node name="MovingHead4" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
-transform = Transform3D(0.990268, -0.139173, 0, -0.13078, -0.930548, -0.34202, 0.0476, 0.338692, -0.939693, -32, 110.116, -58.981)
-
-[node name="MovingHead" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
-transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, 0, 110.116, -58.9809)
+[node name="MovingHead1" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, -144, 110.116, -58.981)
 
 [node name="MovingHead2" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
-transform = Transform3D(0.990268, 0.139173, 0, 0.13078, -0.930548, -0.34202, -0.0476, 0.338692, -0.939693, 32, 110.116, -58.981)
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, -112, 110.116, -58.981)
 
 [node name="MovingHead3" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
-transform = Transform3D(0.961262, 0.275637, 0, 0.259014, -0.903291, -0.34202, -0.0942735, 0.328771, -0.939693, 64, 110.116, -58.981)
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, -80, 110.116, -58.981)
+
+[node name="MovingHead4" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, -48, 110.116, -58.981)
+
+[node name="MovingHead5" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, -16, 110.116, -58.981)
+
+[node name="MovingHead6" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, 16, 110.116, -58.981)
+
+[node name="MovingHead7" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, 48, 110.116, -58.981)
+
+[node name="MovingHead8" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, 80, 110.116, -58.981)
+
+[node name="MovingHead9" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, 112, 110.116, -58.981)
+
+[node name="MovingHead10" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, 144, 110.116, -58.981)
+
+[node name="MovingHead11" parent="LightSetup/MovingHeads" instance=ExtResource("4_gkcbj")]
+transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, 0.34202, -0.939693, 176, 110.116, -58.981)
 
 [node name="BackgroundLight" type="OmniLight3D" parent="LightSetup"]
 transform = Transform3D(1, 0, 0, 0, 0.941111, -0.338097, 0, 0.338097, 0.941111, 0, 15.4966, 21.5493)
@@ -203,7 +224,7 @@ camera_attributes = SubResource("CameraAttributesPractical_80fv8")
 transform = Transform3D(1, 0, 0, 0, 0.989886, 0.141869, 0, -0.141869, 0.989886, 0, 0, 0)
 
 [node name="MainCamera" type="Camera3D" parent="CameraSetup"]
-transform = Transform3D(1, 0, 0, 0, 0.979558, 0.201163, 0, -0.201163, 0.979558, 0, 49.607, 152.427)
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 49.607, 152.427)
 
 [node name="CraneCamera" type="Path3D" parent="CameraSetup"]
 visible = false

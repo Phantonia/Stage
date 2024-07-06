@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Stage": {
+      "commandName": "Project",
+      "commandLineArgs": "-e --path \"E:\\Documents\\Godot\\Stage\""
+    }
+  }
+}
