@@ -87,6 +87,12 @@ public partial class MovingHeads : Node3D
 	{
         Quaternion startRotation = new(Vector3.Right, Mathf.Pi / 4);
 
+        if (running && nextConfiguration == Configs[Key.M])
+        {
+            running = false;
+            rotating = true;
+        }
+
         if (rotating)
         {
             progress += (float)delta * Speed;
@@ -96,8 +102,8 @@ public partial class MovingHeads : Node3D
 
             foreach (Node3D child in GetChildren().OfType<Node3D>())
             {
-                Quaternion rotation = new(Vector3.Forward, 2 * progress + Mathf.Tau / headCount * 2 * i);
-                child.Quaternion = rotation * startRotation;
+                float offset = Mathf.Tau / headCount * 2 * i;
+                child.Quaternion = Rotators.IntegrateOntoRotate(headRotations[i], progress, speed: 2, offset, axis: Vector3.Forward, startRotation);
                 i++;
             }
         }
@@ -112,18 +118,7 @@ public partial class MovingHeads : Node3D
 
             foreach (Node3D child in GetChildren().OfType<Node3D>())
             {
-                if (nextConfiguration == Configs[Key.M])
-                {
-                    Quaternion rotation = new(Vector3.Forward, 2 * progress + Mathf.Tau / headCount * 2 * i);
-
-                    // bug: this will jump because not only the progress but also the rotation is changing
-                    // so the shortest path might suddenly be on the opposite semiglobe
-                    child.Quaternion = headRotations[i].Slerp(rotation * startRotation, Mathf.Clamp(progress, 0, 1));
-                }
-                else
-                {
-                    child.Quaternion = headRotations[i].Slerp(nextConfiguration.GetIndividualHeadRotation(headCount, i), actualProgress);
-                }
+                child.Quaternion = headRotations[i].Slerp(nextConfiguration.GetIndividualHeadRotation(headCount, i), actualProgress);
 
                 i++;
             }
@@ -132,11 +127,6 @@ public partial class MovingHeads : Node3D
             {
                 running = false;
                 //progress = 0;
-
-                if (nextConfiguration == Configs[Key.M])
-                {
-                    rotating = true;
-                }
             }
         }
     }
