@@ -10,5 +10,10 @@ namespace Stage
                 ? 4 * x * x * x
                 : 1 - Math.Pow(-2 * x + 2, 3) / 2;
         }
+
+        public static double EaseIntoIndentiyCubic(double x)
+        {
+            return -x * x * x + 2 * x * x;
+        }
     }
 }

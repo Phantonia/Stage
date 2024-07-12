@@ -88,18 +88,21 @@ up_vector_enabled = false
 
 [node name="Backplane" type="MeshInstance3D" parent="BoundingPlanes"]
 transform = Transform3D(5.219, 0, 0, 0, 1, 0, 0, 0, 1, -2.823, 51.501, -64)
+visible = false
 mesh = SubResource("PlaneMesh_vnopp")
 skeleton = NodePath("../../Stage/StageBox")
 surface_material_override/0 = SubResource("StandardMaterial3D_382di")
 
 [node name="SidePlaneLeft" type="MeshInstance3D" parent="BoundingPlanes"]
 transform = Transform3D(0.830518, 0, 0.4795, 0, 3, 0, -0.4795, 0, 0.830518, -119.426, 136, 96)
+visible = false
 mesh = SubResource("PlaneMesh_5uigw")
 skeleton = NodePath("../../Stage/StageBox")
 surface_material_override/0 = SubResource("StandardMaterial3D_obp7w")
 
 [node name="SidePlaneRight" type="MeshInstance3D" parent="BoundingPlanes"]
 transform = Transform3D(0.866025, 0, -0.5, 0, 3, 0, 0.5, 0, 0.866025, 119.426, 136, 96)
+visible = false
 mesh = SubResource("PlaneMesh_5uigw")
 skeleton = NodePath("../../Stage/StageBox")
 surface_material_override/0 = SubResource("StandardMaterial3D_wl474")
